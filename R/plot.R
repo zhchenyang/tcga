@@ -1,6 +1,7 @@
 #' Plot the ratio
 #'
 #' @param mutations the data.frame
+#' @param asian filter asian
 #' @param na omit.na
 #'
 #' @import ggplot2 showtext
@@ -11,9 +12,9 @@
 #' \dontrun{
 #' ratio_plot(df)
 #' }
-ratio_plot <- function(mutations, na = FALSE){
+ratio_plot <- function(mutations, asian = FALSE, na = FALSE){
   if (na) mutations <- mutations[!is.na(stages)]
-
+  if (asian) mutations[race == "asian"]
   mutations$stages <- forcats::fct_relevel(mutations$stages, "i", "ii", "iii", "iv", "v")
   out <- mutations[,
             .(n = sum(iscontain), N = .N),
