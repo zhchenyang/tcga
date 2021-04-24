@@ -22,4 +22,5 @@ Imports:
     purrr,
     ggplot2,
     forcats,
-    scales
+    scales,
+    showtext

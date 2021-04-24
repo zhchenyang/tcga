@@ -84,7 +84,7 @@ merge_data <- function(cancer, tcga_path, filter = FALSE) {
 #' \dontrun{
 #' get_result(cancer, tcga_path,  db_path)
 #' }
-get_result <- function(cancer, tcga_path,  db_path) {
+get_result <- function(cancer, tcga_path, db_path) {
   tcga <- merge_data(cancer, tcga_path)
   db <- fread(db_path)
   db <- db[, `id` := paste0(`Gene Name`, "-", `AA Mutation`)]

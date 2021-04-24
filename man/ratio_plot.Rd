@@ -12,7 +12,7 @@ ratio_plot(mutations, na = FALSE)
 \item{na}{omit.na}
 }
 \value{
-
+plot
 }
 \description{
 Plot the ratio

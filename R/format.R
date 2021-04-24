@@ -7,7 +7,6 @@
 #' @param dir_name where palace the file
 #' @param cancer_cn the Chinese cancer name
 #'
-#' @return
 #' @export
 #'
 #' @examples

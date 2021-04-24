@@ -3,7 +3,8 @@
 #' @param mutations the data.frame
 #' @param na omit.na
 #'
-#' @return
+#' @import ggplot2 showtext
+#' @return plot
 #' @export
 #'
 #' @examples
@@ -19,13 +20,13 @@ ratio_plot <- function(mutations, na = FALSE){
             by = "stages"][order(stages)][     # TODO fixed order
               , ratio := cumsum(n)/cumsum(N)
             ]
-
+  showtext::showtext_auto(TURE)
   ggplot(data = out, aes(stages, ratio)) +
     geom_col(aes(stages, 1), width = .5, fill = "#afdfe4") +
     geom_col(aes(stages, ratio), width = .5, fill = "#00a6ac") +
     geom_label(
       aes(
-        label = glue::glue("{round(ratio, 4) * 100}%({n}人)"),
+        label = glue::glue("{round(ratio, 4) * 100}%({n}\\u4eba)"),
         y = ratio + 0.03
       ),
       position = position_dodge(0.9),
