@@ -24,7 +24,7 @@ cancer2code <- function(cancer) {
 #' @param tcga_path TCGA data path contain maf and csv.
 #' @param filter filter mutation?
 #'
-#' @return
+#' @return data.table
 #' @export
 #'
 #' @examples
@@ -77,7 +77,7 @@ merge_data <- function(cancer, tcga_path, filter = FALSE) {
 #' @param tcga_path The path to TCGA DB
 #' @param db_path THE path to DB
 #'
-#' @return
+#' @return data.table
 #' @export
 #'
 #' @examples
