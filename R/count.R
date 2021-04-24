@@ -3,7 +3,7 @@
 #' @param df from get_result()
 #' @param stage filter NA
 #'
-#' @return
+#' @return data.table
 #' @export
 #'
 #' @examples
