@@ -14,7 +14,7 @@
 #' }
 ratio_plot <- function(mutations, asian = FALSE, na = FALSE){
   if (na) mutations <- mutations[!is.na(stages)]
-  if (asian) mutations[race == "asian"]
+  if (asian) mutations <- mutations[race == "asian"]
   mutations$stages <- forcats::fct_relevel(mutations$stages, "i", "ii", "iii", "iv", "v")
   out <- mutations[,
             .(n = sum(iscontain), N = .N),
