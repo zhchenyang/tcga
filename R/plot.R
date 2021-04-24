@@ -27,7 +27,7 @@ ratio_plot <- function(mutations, asian = FALSE, na = FALSE){
     geom_col(aes(stages, ratio), width = .5, fill = "#00a6ac") +
     geom_label(
       aes(
-        label = glue::glue("{round(ratio, 4) * 100}%({n}\\u4eba)"),
+        label = glue::glue("{round(ratio, 4) * 100}%({n}\u4eba)"),
         y = ratio + 0.03
       ),
       position = position_dodge(0.9),
