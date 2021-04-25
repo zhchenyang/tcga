@@ -46,13 +46,15 @@ merge_data <- function(cancer, tcga_path, filter = FALSE) {
 
     maf <- grep(glue::glue("{code}.+maf"), files, value = TRUE)
     csv <- grep(glue::glue("{code}.+csv"), files, value = TRUE)
-
-    maf <- fread(maf, select = maf_cols)
+    if (length(maf) == 0) {
+      next
+    }
+    maf <- fread(file = maf, select = maf_cols)
     if (filter) {
       maf <- maf[substr(HGVSp_Short, 3, 3) !=
                    substr(HGVSp_Short, nchar(HGVSp_Short), nchar(HGVSp_Short)),]
     }
-    csv <- fread(csv, select = csv_cols)
+    csv <- fread(file = csv, select = csv_cols)
 
     maf <- maf[, submitter_id := substr(Tumor_Sample_Barcode, 1, 12)][
         csv, on = "submitter_id"][
