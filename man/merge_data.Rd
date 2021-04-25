@@ -14,7 +14,7 @@ merge_data(cancer, tcga_path, filter = FALSE)
 \item{filter}{filter mutation?}
 }
 \value{
-
+data.table
 }
 \description{
 Get info form maf and csv

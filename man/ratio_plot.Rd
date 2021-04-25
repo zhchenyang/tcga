@@ -4,10 +4,12 @@
 \alias{ratio_plot}
 \title{Plot the ratio}
 \usage{
-ratio_plot(mutations, na = FALSE)
+ratio_plot(mutations, asian = FALSE, na = FALSE)
 }
 \arguments{
 \item{mutations}{the data.frame}
+
+\item{asian}{filter asian}
 
 \item{na}{omit.na}
 }

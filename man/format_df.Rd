@@ -19,9 +19,6 @@ format_df(maf_path, csv_path, maf_index, csv_index, dir_name, cancer_cn)
 
 \item{cancer_cn}{the Chinese cancer name}
 }
-\value{
-
-}
 \description{
 format file
 }

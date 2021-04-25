@@ -1,9 +1,11 @@
 ## code to prepare `cancer_info` dataset goes here
 library(data.table)
 cancer_info <- fread("data-raw/cancer22_info.csv")
-cancer_info <- cancer_info[,
-                           .(zh_name = stringi::stri_escape_unicode(zh_name),
-                             cancer_name = stringi::stri_escape_unicode(cancer_name))] # TODO
+# cancer_info <- cancer_info[,
+#                            .(tissue,
+#                              zh_name = stringi::stri_escape_unicode(zh_name),
+#                              cancer_name = stringi::stri_escape_unicode(cancer_name))] # TODO
+
 usethis::use_data(cancer_info, overwrite = TRUE)
 
 maf_cols <- c(

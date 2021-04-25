@@ -12,7 +12,7 @@ mutation(df, stage = FALSE)
 \item{stage}{filter NA}
 }
 \value{
-
+data.table
 }
 \description{
 Count mutation

@@ -14,7 +14,7 @@ get_result(cancer, tcga_path, db_path)
 \item{db_path}{THE path to DB}
 }
 \value{
-
+data.table
 }
 \description{
 Mutation
