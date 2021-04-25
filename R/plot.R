@@ -12,15 +12,15 @@
 #' \dontrun{
 #' ratio_plot(df)
 #' }
-ratio_plot <- function(mutations, asian = FALSE, na = FALSE){
-  if (na) mutations <- mutations[!is.na(stages)]
-  if (asian) mutations <- mutations[race == "asian"]
-  mutations$stages <- forcats::fct_relevel(mutations$stages, "i", "ii", "iii", "iv", "v")
-  out <- mutations[,
-            .(n = sum(iscontain), N = .N),
-            by = "stages"][order(stages)][     # TODO fixed order
-              , ratio := cumsum(n)/cumsum(N)
-            ]
+ratio_plot <- function(out, asian = FALSE, na = FALSE){
+  # if (na) mutations <- mutations[!is.na(stages)]
+  # if (asian) mutations <- mutations[race == "asian"]
+  # mutations$stages <- forcats::fct_relevel(mutations$stages, "i", "ii", "iii", "iv", "v")
+  # out <- mutations[,
+  #           .(n = sum(iscontain), N = .N),
+  #           by = "stages"][order(stages)][     # TODO fixed order
+  #             , ratio := cumsum(n)/cumsum(N)
+  #           ]
   showtext::showtext_auto(TRUE)
   ggplot(data = out, aes(stages, ratio)) +
     geom_col(aes(stages, 1), width = .5, fill = "#afdfe4") +

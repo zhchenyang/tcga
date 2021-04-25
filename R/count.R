@@ -25,3 +25,30 @@ mutation <- function(df, stage = FALSE) {
        by = c("submitter_id", "stages")][udf, on = "submitter_id"]
   return(res)
 }
+
+#' Count the ratio
+#'
+#' @param mutations form mutations
+#' @param na filter na
+#' @param asian filer asian
+#'
+#' @return data.table
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' get_ratio(mutations)
+#' }
+get_ratio <- function(mutations, na = FALSE, asian = FALSE) {
+  if (na) mutations <- mutations[!is.na(stages)]
+  if (asian) mutations <- mutations[race == "asian"]
+  mutations$stages <- forcats::fct_relevel(mutations$stages, "i", "ii", "iii", "iv", "v")
+  out <- mutations[,
+                   .(n = sum(iscontain), N = .N),
+                   by = "stages"][order(stages)][     # TODO fixed order
+                     , ratio := cumsum(n)/cumsum(N)
+                   ]
+  return(out)
+}
+
+

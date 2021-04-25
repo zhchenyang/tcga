@@ -2,6 +2,7 @@
 
 export(cancer2code)
 export(format_df)
+export(get_ratio)
 export(get_result)
 export(merge_data)
 export(mutation)
