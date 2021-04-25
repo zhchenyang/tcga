@@ -21,7 +21,7 @@ ratio_plot <- function(mutations, asian = FALSE, na = FALSE){
             by = "stages"][order(stages)][     # TODO fixed order
               , ratio := cumsum(n)/cumsum(N)
             ]
-  showtext::showtext_auto(TURE)
+  showtext::showtext_auto(TRUE)
   ggplot(data = out, aes(stages, ratio)) +
     geom_col(aes(stages, 1), width = .5, fill = "#afdfe4") +
     geom_col(aes(stages, ratio), width = .5, fill = "#00a6ac") +
