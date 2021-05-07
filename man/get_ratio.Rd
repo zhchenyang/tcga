@@ -4,7 +4,7 @@
 \alias{get_ratio}
 \title{Count the ratio}
 \usage{
-get_ratio(mutations, na = FALSE, asian = FALSE)
+get_ratio(mutations, na = FALSE, stages = TRUE, asian = FALSE)
 }
 \arguments{
 \item{mutations}{form mutations}

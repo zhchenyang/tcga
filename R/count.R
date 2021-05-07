@@ -39,15 +39,25 @@ mutation <- function(df, stage = FALSE) {
 #' \dontrun{
 #' get_ratio(mutations)
 #' }
-get_ratio <- function(mutations, na = FALSE, asian = FALSE) {
-  if (na) mutations <- mutations[!is.na(stages)]
+get_ratio <- function(mutations, na = FALSE, stages = TRUE, asian = FALSE) {
+
   if (asian) mutations <- mutations[race == "asian"]
-  mutations$stages <- forcats::fct_relevel(mutations$stages, "i", "ii", "iii", "iv", "v")
-  out <- mutations[,
-                   .(n = sum(iscontain), N = .N),
-                   by = "stages"][order(stages)][     # TODO fixed order
-                     , ratio := cumsum(n)/cumsum(N)
-                   ]
+  index <- c("gene", "mutation", "id", "contain")
+  mutations <- mutations[, .SD, .SDcols = -index]
+  mutations <- unique.data.frame(mutations)
+  if (stages) {
+
+    mutations$stages <-  stringr::str_extract(mutations$stages, "[ivx]{1,}")
+    mutations$stages <- forcats::fct_relevel(mutations$stages, "i", "ii", "iii", "iv", "v")
+    if (na) mutations <- mutations[!is.na(stages)]
+    out <- mutations[,
+                     .(n = sum(iscontain), N = .N),
+                     by = "stages"][order(stages)][     # TODO fixed order
+                       , ratio := cumsum(n)/cumsum(N)
+                     ]
+  } else {
+    out <- mutations[, .(n = sum(iscontain), N = .N)]
+  }
   return(out)
 }
 

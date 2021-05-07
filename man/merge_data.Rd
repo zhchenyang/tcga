@@ -4,12 +4,18 @@
 \alias{merge_data}
 \title{Get info form maf and csv}
 \usage{
-merge_data(cancer, tcga_path, filter = FALSE)
+merge_data(cancer, tcga_path, maf_index, csv_index, db_path, filter = FALSE)
 }
 \arguments{
 \item{cancer}{The Chinese cancer name.}
 
 \item{tcga_path}{TCGA data path contain maf and csv.}
+
+\item{maf_index}{mutation info}
+
+\item{csv_index}{sample info}
+
+\item{db_path}{db path}
 
 \item{filter}{filter mutation?}
 }

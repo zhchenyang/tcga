@@ -23,6 +23,9 @@ cancer2code <- function(cancer) {
 #' @param cancer The Chinese cancer name.
 #' @param tcga_path TCGA data path contain maf and csv.
 #' @param filter filter mutation?
+#' @param maf_index mutation info
+#' @param csv_index sample info
+#' @param db_path db path
 #'
 #' @return data.table
 #' @export
@@ -31,10 +34,11 @@ cancer2code <- function(cancer) {
 #' \dontrun{
 #' merge_data("胃癌", "data/path")
 #' }
-merge_data <- function(cancer, tcga_path, filter = FALSE) {
+merge_data <- function(cancer, tcga_path, maf_index, csv_index,
+                       db_path, filter = FALSE) {
   # NULL for check
-  HGVSp_Short <- submitter_id <- stages <- Tumor_Sample_Barcode <- NULL
-  tumor_stage <- id <- Hugo_Symbol <- NULL
+  # HGVSp_Short <- submitter_id <- stages <- Tumor_Sample_Barcode <- NULL
+  # tumor_stage <- id <- Hugo_Symbol <- NULL
 
   codes <- cancer2code(cancer)
   pattern <- paste0(codes, collapse = "|")
@@ -49,23 +53,24 @@ merge_data <- function(cancer, tcga_path, filter = FALSE) {
     if (length(maf) == 0) {
       next
     }
-    maf <- fread(file = maf, select = maf_cols)
-    if (filter) {
-      maf <- maf[substr(HGVSp_Short, 3, 3) !=
-                   substr(HGVSp_Short, nchar(HGVSp_Short), nchar(HGVSp_Short)),]
-    }
-    csv <- fread(file = csv, select = csv_cols)
+    maf <- get_mua(data_path = maf, maf_index)
+    # if (filter) {
+    #   maf <- maf[substr(HGVSp_Short, 3, 3) !=
+    #                substr(HGVSp_Short, nchar(HGVSp_Short), nchar(HGVSp_Short)),]
+    # }
+    csv <- get_sample_info(csv, csv_index)
 
-    maf <- maf[, submitter_id := substr(Tumor_Sample_Barcode, 1, 12)][
-        csv, on = "submitter_id"][
-        , stages := stringr::str_extract(tumor_stage, "[ivx/0]{1,}")
-      ]
+    # maf <- maf[, submitter_id := substr(Tumor_Sample_Barcode, 1, 12)][
+    #     csv, on = "submitter_id"][
+    #     , stages := stringr::str_extract(tumor_stage, "[ivx/0]{1,}")
+    #   ]
+    maf <- format_data(maf, db_path, csv, match = TRUE)
     out[[i]] <- maf
   }
   res <- purrr::reduce(out, rbind)
-  res <- res[, id := paste0(Hugo_Symbol, "-", HGVSp_Short)]
-  setcolorder(res, "id")
-  setcolorder(res, names(res)[2:5])  ## mark
+  # res <- res[, id := paste0(Hugo_Symbol, "-", HGVSp_Short)]
+  # setcolorder(res, "id")
+  # setcolorder(res, names(res)[2:5])  ## mark
 
   # setcolorder(res, c(names(res[1:4]), "id",))
   message(glue::glue("{dim(res)}"))

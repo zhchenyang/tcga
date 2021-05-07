@@ -4,7 +4,7 @@
 \alias{ratio_plot}
 \title{Plot the ratio}
 \usage{
-ratio_plot(mutations, asian = FALSE, na = FALSE)
+ratio_plot(out)
 }
 \arguments{
 \item{mutations}{the data.frame}

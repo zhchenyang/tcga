@@ -42,5 +42,5 @@ ratio_plot <- function(out){
     theme_minimal(base_size = 32) +
     theme(plot.title = element_text(hjust = .5))
 
-  return(p)
+  print(p)
 }
