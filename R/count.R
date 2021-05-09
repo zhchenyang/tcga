@@ -60,5 +60,3 @@ get_ratio <- function(mutations, na = FALSE, stages = TRUE, asian = FALSE) {
   }
   return(out)
 }
-
-
