@@ -70,8 +70,13 @@ get_sample_info <- function(data_path, index, bind = FALSE) {
 #' res <- format_data(mua, db_path, sample_info)
 #' }
 format_data <- function(mua, db_path, sample_info, match = FALSE) {
-  db <- fread(db_path)
-  db <- db[, id := paste0(`Gene Name`, "-", `AA Mutation`)]
+  if (is.data.frame(db_path)) {
+    db <- db_path
+    db <- db[, id := paste0(`Gene Name`, "-", `AA Mutation`)]
+  } else {
+    db <- fread(db_path)
+    db <- db[, id := paste0(`Gene Name`, "-", `AA Mutation`)]
+  }
 
   mua <- mua[id %chin% db$id, contain := TRUE]
   mua$contain[is.na(mua$contain)] <- FALSE
