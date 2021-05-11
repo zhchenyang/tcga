@@ -25,7 +25,7 @@ get_mua <- function(data_path, index, bind = TRUE) {
   cols <- unname(index)
   index_type <- rep("character", length(cols))
   names(index_type) <- cols
-  dt <- fread(file = data_path, select = index_type, col.names = col_names)
+  dt <- fread(cmd = glue::glue("grep -v '^#' {data_path}"), select = index_type, col.names = col_names)
   if (bind) dt$id <- paste0(dt$gene, "-", dt$mutation)
   return(dt)
 

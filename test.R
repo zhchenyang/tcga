@@ -89,7 +89,7 @@ csv_index <- c(sample_id = "submitter_id", race = "race", stages = "tumor_stage"
 tcga_path <- "/Users/zhchy/new/push/data/TCGA_db/"
 
 for (i in seq_along(uname)) {
-  path <- "~/Downloads/E9_cancer_filter_coverage_static_tcga/coverage_per_cancer"
+  path <- "~/Downloads/E9_cancer_filter_coverage_static/coverage_per_cancer"
   db_path <- get_mutation(uname[i], path)
   if (is.null(db_path)) next
   res <- merge_data(uname[i], tcga_path, maf_index, csv_index, db_path)
@@ -101,3 +101,19 @@ for (i in seq_along(uname)) {
   res$cancer <- uname[i]
   fwrite(res, "tcga_ratio.tsv", sep = "\t", append = TRUE)
 }
+
+# msk
+data_path <- "~/Downloads/data/msk_impact_2017/data_mutations_mskcc.txt"
+maf_index <- c(gene = "Hugo_Symbol", mutation = "HGVSp_Short", sample_id = "Tumor_Sample_Barcode")
+mua <- get_mua(data_path, maf_index)
+
+data_path <- "~/Downloads/data/msk_impact_2017/data_clinical_sample.txt"
+csv_index <- c(sample_id = "SAMPLE_ID", whatever = "SAMPLE_TYPE")
+sample_info <- get_sample_info(data_path, csv_index)
+path <- "~/Downloads/E9_cancer_filter_coverage_static/coverage_per_cancer"
+db_path <- get_mutation("胃癌", path)
+res <- format_data(mua, db_path, sample_info)
+res <- res[duplicated(res$sample_id) == FALSE]
+table(res$iscontain)
+
+# paper
