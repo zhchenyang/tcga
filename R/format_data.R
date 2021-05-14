@@ -88,7 +88,7 @@ format_data <- function(mua, db_path, sample_info, match = FALSE) {
     mua$sample_id_raw <- mua$sample_id
     mua$sample_id <- substr(mua$sample_id, 1, 12)
   }
-  mua <- merge(mua, sample_info, by = "sample_id")
+  mua <- merge(mua, sample_info, by = "sample_id", all = TRUE)
 
   return(mua)
 }

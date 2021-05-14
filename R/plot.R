@@ -26,13 +26,13 @@ ratio_plot <- function(out){
   p <- ggplot(data = out, aes(stages, ratio)) +
     geom_col(aes(stages, 1), width = .5, fill = "#afdfe4") +
     geom_col(aes(stages, ratio), width = .5, fill = "#00a6ac") +
-    geom_label(
+    geom_text(
       aes(
         label = glue::glue("{round(ratio, 4) * 100}%\n({n}\u4eba)"),
         y = ratio + 0.03
       ),
-      position = position_dodge(0.9),
-      vjust = 0.9,
+      # position = position_dodge(0.9),
+      vjust = 1,
       size = 7
     ) +
     labs(y = NULL, x = NULL,
